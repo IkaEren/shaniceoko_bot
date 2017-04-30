@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
+using shaniceoko.Dialogs;
 
 namespace shaniceoko
 {
@@ -18,8 +19,12 @@ namespace shaniceoko
         {
             if (activity.Type == ActivityTypes.Message)
             {
-                await Conversation.SendAsync(activity, () => new Dialogs.RootDialog());
+                await Conversation.SendAsync(activity, () => new LuisDialog());
             }
+            //if (activity.Type == ActivityTypes.Message)
+            //{
+            //    await Conversation.SendAsync(activity, () => new Dialogs.RootDialog());
+            //}
             else
             {
                 HandleSystemMessage(activity);

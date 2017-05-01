@@ -15,10 +15,23 @@ namespace shaniceoko.Dialogs
 
     public class LuisDialog : LuisDialog<object>
     {
-        [LuisIntent("None")]
+        [LuisIntent("")]
         public async Task None(IDialogContext context, LuisResult result)
         {
-            await context.PostAsync("I'm sorry. I don't understand you.");
+            context.Wait(MessageReceived);
+        }
+
+        [LuisIntent("AboutMe")]
+        public async Task AboutMe(IDialogContext context, LuisResult result)
+        {
+            await context.PostAsync(@"I am the best Wizard in Hogwarts");
+            context.Wait(MessageReceived);
+        }
+
+        [LuisIntent("Twice")]
+        public async Task Twice(IDialogContext context, LuisResult result)
+        {
+            await context.PostAsync(@"u has to stop!!");
             context.Wait(MessageReceived);
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -19,6 +20,13 @@ namespace shaniceoko
         {
             if (activity.Type == ActivityTypes.Message)
             {
+                //Activity isTypingResp = activity.CreateReply();
+                //isTypingResp.Type = ActivityTypes.Typing;
+                // With context to http://www.garypretty.co.uk/2016/07/18/bot-framework-typing-activity-let-users-know-your-bot-is-responding/
+                var connector = new ConnectorClient(new Uri(activity.ServiceUrl));
+                Activity isTypingReply = activity.CreateReply();
+                isTypingReply.Type = ActivityTypes.Typing;
+                await connector.Conversations.ReplyToActivityAsync(isTypingReply);
                 await Conversation.SendAsync(activity, () => new LuisDialog());
             }
             //if (activity.Type == ActivityTypes.Message)
